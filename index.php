@@ -5,12 +5,12 @@ if(!$link) {
 die('Could not connect: '.mysql_error());
 }
 // 2. 데이터베이스 선택
-mysql_select_db('javatest');
+mysql_select_db('igor');
 mysql_query("set session character_set_connection=utf8;");
 mysql_query("set session character_set_results=utf8;");
 mysql_query("set session character_set_client=utf8;");
 if(!empty($_GET['id'])) {
-$sql="SELECT * FROM testdata WHERE id = ".$_GET['id'];
+$sql="SELECT * FROM dept WHERE seq = ".$_GET['id'];
 $result = mysql_query($sql);
 $topic = mysql_fetch_assoc($result);
 }
@@ -96,23 +96,23 @@ $topic = mysql_fetch_assoc($result);
             <nav>
                 <ul>
                     <?php
-                    $sql="select id,foo from testdata";
+                    $sql="select seq, name from dept";
                     $result=mysql_query($sql);
                     while($row=mysql_fetch_assoc($result)) {
                     echo "
                     <li>
-                        <a href=\"?id={$row['id']}\">{$row['foo']}</a></li>";
+                        <a href=\"?id={$row['seq']}\">{$row['name']}</a></li>";
                         }
-                        ?>
+                    ?>
                 </ul>
             </nav>
             <article>
                 <?php
                 if(!empty($topic)){
                 ?>
-                <h2><?=$topic['foo']?></h2>
+                <h2><?=$topic['name']?></h2>
                 <div class="description">
-                    <?=$topic['bar']?>
+                    <?=$topic['description']?>
                 </div>
                 <?php
                 }
